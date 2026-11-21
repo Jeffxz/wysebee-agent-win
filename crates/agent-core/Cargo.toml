@@ -1,0 +1,45 @@
+[package]
+name = "agent-core"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "Wysebee Agent for Windows, bar the window: the link to Wysebee Cloud, the approvals and the programs."
+
+[dependencies]
+base64.workspace = true
+calamine.workspace = true
+chrono.workspace = true
+pdf-extract.workspace = true
+quick-xml.workspace = true
+zip.workspace = true
+rand.workspace = true
+regex.workspace = true
+reqwest.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+sha2.workspace = true
+hex.workspace = true
+dunce.workspace = true
+image.workspace = true
+tokio.workspace = true
+tracing.workspace = true
+
+# The link secret's home (secrets.rs): the Windows Credential Manager.
+[target.'cfg(windows)'.dependencies]
+keyring = { version = "3", features = ["windows-native"] }
+
+[dev-dependencies]
+tempfile = "3"
+axum = { version = "0.8", default-features = false, features = ["json", "query", "tokio", "http1"] }
+tokio = { version = "1", features = ["full"] }
+
+# Folder links in the tests: a junction needs no privilege on Windows, a symbolic link does.
+[target.'cfg(windows)'.dev-dependencies]
+junction = "1"
+
+# The tests' stand-in for a program (tests/support/program.rs): not shipped.
+[[bin]]
+name = "wysebee-test-program"
+path = "tests/support/program.rs"
+test = false
+doc = false

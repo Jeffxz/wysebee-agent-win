@@ -1,0 +1,10 @@
+/target/
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+# The schemas tauri-build writes beside its config.
+/crates/agent-app/gen/
+# Local assistant notes.
+/CLAUDE.md
